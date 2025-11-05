@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unique Modern Management Consulting (UMMC)</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <!-- AOS Animation -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+  <style>
+:root {
+  --primary-color: #070F34;
+  --accent-color: #355eac;
+  --bg-light: #070F34; /* الخلفية الأساسية داكنة */
+  --text-dark: #ffffff; /* النصوص أبيض */
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ===== HEADER ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 8%;
+  background: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 1s ease;
+}
+
+header.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+header img.logo {
+  height: 55px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 1s ease;
+}
+
+header.visible img.logo {
+  opacity: 1;
+  transform: scale(1);
+}
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.header-icons a {
+  color: #e8ecf1; /* أبيض ناعم */
+  font-size: 18px;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.header-icons a:hover {
+  transform: scale(1.2);
+  color: #3ea3ff; /* الأزرق الفاتح */
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 1s ease 0.3s;
+}
+
+header.visible nav ul {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+nav ul li a {
+  color: #ffffff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block; /* مهم لتطبيق transform */
+}
+
+nav ul li a:hover {
+  color: #3ea3ff;
+  transform: scale(1.05); /* يكبر الرابط قليلاً عند hover */
+  text-shadow: 0 2px 5px rgba(0,0,0,0.3); /* ظل للنص */
+}
+.lang-toggle {
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* ===== HAMBURGER ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+/* زر الإغلاق */
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  display: none;
+}
+
+@media (max-width: 900px) {
+  nav ul {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background: var(--primary-color);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition);
+    gap: 30px;
+  }
+
+  nav ul.active {
+    right: 0;
+  }
+
+  nav ul li a {
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  .lang-toggle {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .close-btn {
+    display: block;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+}
+
+
+/* ===== TESTIMONIALS ===== */
+.testimonials {
+  background-color: #050a25;
+  color: white;
+  padding: 80px 8%;
+  text-align: center;
+}
+
+.testimonials h2 {
+  margin-bottom: 40px;
+}
+
+.testimonial-item {
+  max-width: 700px;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+.testimonial-item span {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #cfd8e3;
+}
+
+
+/* ===== FOOTER ===== */
+footer {
+  background: #050a25;
+  color: #ffffff;
+  padding: 60px 8% 20px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+footer h4 {
+  margin-bottom: 20px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+footer ul {
+  list-style: none;
+}
+
+footer ul li {
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+footer ul li a {
+  color: #cbd2e3;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+footer ul li a:hover {
+  color: var(--accent-color);
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+  color: #cbd2e3;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header id="main-header">
+    <img src="https://res.cloudinary.com/dcbxuax2c/image/upload/v1762183403/Unique_Modern_Management_Consulting_4_jqnejn.png" alt="UMMC Logo" class="logo">
+    <nav>
+      <ul>
+        <span class="close-btn">&times;</span>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="founder.html">Founder</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="testimonials.html">Testimonials</a></li>
+<li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+<div class="header-icons">
+  <a href="https://www.linkedin.com/in/fahem-nihad-yaseen-al-musa-107bb219" target="_blank" title="LinkedIn">
+    <i class="fab fa-linkedin"></i>
+  </a>
+  <a href="https://wa.me/962798268268" target="_blank" title="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  <a href="tel:+962798268268" title="Call">
+    <i class="fas fa-phone"></i>
+  </a>
+<a href="https://mail.google.com/mail/?view=cm&to=fahem@umcjo.com" target="_blank" title="Email">
+  <i class="fas fa-envelope"></i>
+</a>
+</div>
+    <div class="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials">
+  <h2 data-aos="fade-up">What Our Clients Say</h2>
+
+  <div class="testimonial-item" data-aos="fade-up">
+    “UMMC provided us with a governance and compliance framework that strengthened decision-making across our entire organization.”
+    <span>— Group CEO, GCC Manufacturing Firm</span>
+  </div>
+  <br><br>
+
+  <div class="testimonial-item" data-aos="fade-up">
+    “Their financial modeling support helped us secure investor confidence and expand into new markets.”
+    <span>— Founder, Technology Startup (Jordan)</span>
+  </div>
+  <br><br>
+
+  <div class="testimonial-item" data-aos="fade-up">
+    “Professional, insightful, and culturally aware. Highly recommended for cross-border advisory.”
+    <span>— Board Member, Multinational Holding</span>
+  </div>
+</section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4>About UMMC</h4>
+        <p>Unique Modern Management Consulting bridges global best practices with regional insight to empower growth, governance, and digital excellence.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="founder.html">Founder</a></li>         
+          <li><a href="services.html">Services</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><i class="fa-solid fa-location-dot"></i> King Hussein Business Park, Amman, Jordan</li>
+          <li><i class="fa-solid fa-envelope"></i> fahem@umcjo.com</li>
+          <li><i class="fa-solid fa-phone"></i>  +962 798 268 268</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2025 UMMC. All Rights Reserved.
+      Powerd By EQTech Jordan 
+    </div>
+  </footer>
+  <!-- ===== JS ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    // تأثير ظهور الهيدر عند التحميل
+    window.addEventListener('load', () => {
+      document.getElementById('main-header').classList.add('visible');
+    });
+
+    // Hamburger Toggle + زر الإغلاق
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('nav ul');
+    const closeBtn = document.querySelector('.close-btn');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
