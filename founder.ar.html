@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unique Modern Management Consulting (UMMC)</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <!-- AOS Animation -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+  <style>
+:root {
+  --primary-color: #070F34;
+  --accent-color: #355eac;
+  --bg-light: #070F34; /* الخلفية الأساسية داكنة */
+  --text-dark: #ffffff; /* النصوص أبيض */
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Cairo', sans-serif;
+}
+
+body {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ===== HEADER ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 8%;
+  background: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 1s ease;
+}
+
+header.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+header img.logo {
+  height: 55px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 1s ease;
+}
+
+header.visible img.logo {
+  opacity: 1;
+  transform: scale(1);
+}
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.header-icons a {
+  color: #e8ecf1; /* أبيض ناعم */
+  font-size: 18px;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.header-icons a:hover {
+  transform: scale(1.2);
+  color: #3ea3ff; /* الأزرق الفاتح */
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 1s ease 0.3s;
+}
+
+header.visible nav ul {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+nav ul li a {
+  color: #ffffff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block; /* مهم لتطبيق transform */
+}
+
+nav ul li a:hover {
+  color: #3ea3ff;
+  transform: scale(1.05); /* يكبر الرابط قليلاً عند hover */
+  text-shadow: 0 2px 5px rgba(0,0,0,0.3); /* ظل للنص */
+}
+
+.lang-toggle {
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* ===== HAMBURGER ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+/* زر الإغلاق */
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  display: none;
+}
+
+@media (max-width: 900px) {
+  nav ul {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background: var(--primary-color);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition);
+    gap: 30px;
+  }
+
+  nav ul.active {
+    right: 0;
+  }
+
+  nav ul li a {
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  .lang-toggle {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .close-btn {
+    display: block;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+}
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background: #10214a;
+  padding: 6px 12px;
+  border-radius: 30px;
+  font-size: 14px;
+  gap: 8px;
+  transition: 0.3s;
+}
+
+.lang-switch span {
+  color: #fff;
+  transition: 0.3s;
+}
+
+.lang-switch .toggle {
+  width: 28px;
+  height: 14px;
+  background: #6b90ff;
+  border-radius: 20px;
+  position: relative;
+  transition: 0.3s;
+}
+
+.lang-switch .toggle::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: 0.3s;
+}
+
+/* لما الصفحة عربي */
+html[dir="rtl"] .lang-switch .toggle::before {
+  left: 14px;
+}
+
+/* إخفاء وإظهار السويتش حسب الجهاز */
+.desktop-only {
+  display: flex;
+}
+.mobile-only {
+  display: none;
+}
+@media (max-width: 900px) {
+  .desktop-only { display: none; }
+  .mobile-only { display: flex; }
+}
+
+/* ===== قسم المؤسس ===== */
+#founder-section {
+  padding: 70px 20px;
+  background: #070F34;
+  color: #e8ecf1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  direction: rtl;       /* كل النصوص عربية */
+  text-align: right;    /* محاذاة النصوص لليمين */
+  font-family: 'Cairo', sans-serif;
+}
+
+.founder-container {
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row; /* ديسكتوب */
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: center; /* يوسّط الأعمدة */
+  text-align: right;
+  direction: rtl;
+}
+
+.founder-image {
+  display: flex;
+  justify-content: center; /* يوسّط الصورة داخل div */
+  width: 100%;
+}
+
+.founder-image img {
+  max-width: 280px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 2px solid rgba(62, 163, 255, 0.4);
+  box-shadow: 0 0 20px rgba(62, 163, 255, 0.25), 0 0 50px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.founder-image img:hover {
+  transform: scale(1.03);
+  cursor: pointer;
+}
+
+.founder-text {
+  flex: 1 1 600px;
+  min-width: 300px;
+}
+
+.founder-text h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.founder-text h4 {
+  font-size: 16px;
+  margin-bottom: 14px;
+  color: #63b7ff;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.founder-text h5 {
+  font-size: 18px;
+  color: #63b7ff;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.founder-text p {
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.founder-text ul {
+  margin-bottom: 20px;
+  list-style: disc inside;
+  line-height: 1.6;
+}
+
+.founder-socials {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.founder-socials img {
+  width: 32px;
+  transition: transform 0.25s;
+}
+
+.founder-socials img:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+/* ===== Mobile adjustments ===== */
+@media (max-width: 768px) {
+  .founder-container {
+    flex-direction: column;
+    align-items: center; /* يوسّط كل الأعمدة بما فيها الصورة */
+  }
+
+  .founder-image {
+    justify-content: center; /* يوسّط الصورة */
+  }
+
+  .founder-image img {
+    width: 220px;
+    margin: 15px 0;
+  }
+
+  /* كل النصوص من اليمين لليسار */
+  .founder-text h3,
+  .founder-text h4,
+  .founder-text h5,
+  .founder-text p,
+  .founder-text ul {
+    text-align: right;
+    direction: rtl;
+  }
+}
+
+
+
+
+/* ===== FOOTER ===== */
+footer {
+  background: #050a25;
+  color: #ffffff;
+  padding: 60px 8% 20px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+footer h4 {
+  margin-bottom: 20px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+footer ul {
+  list-style: none;
+}
+
+footer ul li {
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+footer ul li a {
+  color: #cbd2e3;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+footer ul li a:hover {
+  color: var(--accent-color);
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+  color: #cbd2e3;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+<header id="main-header">
+  <img src="https://res.cloudinary.com/dcbxuax2c/image/upload/v1762183403/Unique_Modern_Management_Consulting_4_jqnejn.png" alt="UMMC Logo" class="logo">
+
+  <nav>
+    <ul dir="rtl">
+      <span class="close-btn">&times;</span>
+      <li><a href="index.ar.html">الرئيسية</a></li>
+      <li><a href="about.ar.html">من نحن</a></li>
+      <li><a href="founder.ar.html">المؤسس</a></li>
+      <li><a href="services.ar.html">الخدمات</a></li>
+      <li><a href="testimonials.ar.html">آراء العملاء</a></li>
+      <li><a href="contact.ar.html">اتصل بنا</a></li>
+
+      <!-- السويتش يظهر بالموبايل -->
+      <li class="mobile-only" style="margin-top:20px;">
+        <div class="lang-switch">
+          <span>AR</span>
+          <div class="toggle"></div>
+          <span>EN</span>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="header-icons">
+    <!-- السويتش يظهر على الديسكتوب -->
+    <div class="lang-switch desktop-only">
+      <span>AR</span>
+      <div class="toggle"></div>
+      <span>EN</span>
+    </div>
+
+    <a href="https://www.linkedin.com/in/fahem-nihad-yaseen-al-musa-107bb219" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://wa.me/962798268268" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="tel:+962798268268"><i class="fas fa-phone"></i></a>
+    <a href="mailto:fahem@umcjo.com"><i class="fas fa-envelope"></i></a>
+  </div>
+
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</header>
+
+
+<!-- ===== قسم المؤسس ===== -->
+<section id="founder-section" style="direction: rtl; text-align: right; font-family: 'Cairo', sans-serif; padding: 80px 20px; background: #070F34; color: #e8ecf1;">
+  <div class="founder-container" style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; align-items: flex-start;">
+
+    <!-- الصورة -->
+    <div class="founder-image" data-aos="fade-down" style="flex: 1 1 300px; text-align: center;">
+      <img src="https://res.cloudinary.com/dcbxuax2c/image/upload/v1762302159/WhatsApp_Image_2025-10-30_at_6.38.29_PM_xnluen.jpg" alt="Fahem Al Musa" style="width: 100%; max-width: 300px; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.4);">
+    </div>
+
+    <!-- النصوص الرئيسية -->
+    <div class="founder-text" data-aos="fade-up" style="flex: 2 1 500px;">
+      <h3 style="text-align: center; color: #63b7ff; margin-bottom: 10px;">فهم نهاد ياسين الموسى</h3>
+      <h4 style="text-align: center; font-weight: 500; margin-bottom: 20px;">
+<h4 style="direction: rtl; text-align: center;">
+  المؤسس والمستشار الرئيسي<br>
+  شركة المتفردة الحديثة للاستشارات الإدارية – مجمع الملك حسين للأعمال، عمّان، الأردن
+</h4>
+
+      <p style="margin-bottom: 20px; line-height: 1.8;">
+        قيادة استراتيجية في الاستشارات المالية، التدقيق، والتحول الرقمي. لديه اكثر من 30 عاماً من الخبرة العالمية، يقدم حلول ثنائية اللغة مدعومة بالتكنولوجيا لتمكين الصناعات المنظمة في الشرق الأوسط وخارجه.
+      </p>
+
+      <!-- الخبرات -->
+      <h5 style="color: #63b7ff; margin-bottom: 10px;">مجالات الخبرة</h5>
+      <ul style="margin-bottom: 20px; padding-left: 20px; line-height: 1.7;">
+        <li><strong>الذكاء الاصطناعي وأتمتة التدقيق:</strong> كشف الاحتيال، التدقيق المستمر، تحسين الرقابة الداخلية.</li>
+        <li><strong>استشارات تكنولوجيا المعلومات والامتثال:</strong> ACL GRC، Teammate IA، تكامل أنظمة ERP للتحول الرقمي.</li>
+        <li><strong>الاستشارات المالية والإدارية:</strong> التخطيط الاستراتيجي، الميزانيات، والسيطرة المالية للنمو المستدام.</li>
+        <li><strong>تحسين التكلفة وزيادة الأرباح:</strong> تحديد تقنيات تقليل التكاليف وزيادة الإيرادات.</li>
+        <li><strong>الحوكمة وإدارة المخاطر:</strong> استشارات على مستوى المجلس حول التدقيق الداخلي، التحقيق في الاحتيال، وأطر الامتثال.</li>
+      </ul>
+
+      <!-- الإنجازات -->
+      <h5 style="color: #63b7ff; margin-bottom: 10px;">أبرز الإنجازات المهنية</h5>
+      <ul style="margin-bottom: 20px; padding-left: 20px; line-height: 1.7;">
+        <li>تأسيس أقسام التدقيق الداخلي في دار الدواء، Arabtec Holding، والكليات التقنية العليا (الإمارات).</li>
+        <li>قيادة تطوير الأنظمة المالية لوزارة شؤون الرئاسة، أبوظبي.</li>
+        <li>إدارة وظائف التدقيق والاستشارات في Crowe Dubai، FINCA International (USA)، Talal Abu Ghazaleh International.</li>
+        <li>تدريب أكثر من 25 مدققاً ومحاسباً إماراتياً في المالية العامة والتدقيق.</li>
+        <li>تعزيز الاستثمار في دبي من خلال التواصل الدولي، بما في ذلك البودكاست مع مكاتب قانونية في نيويورك.</li>
+      </ul>
+
+      <!-- اللغات والمؤهلات -->
+      <h5 style="color: #63b7ff; margin-bottom: 10px;">اللغات والمؤهلات</h5>
+      <p style="margin-bottom: 20px; line-height: 1.8;">
+        يجيد العربية، الإنجليزية، الفرنسية، والإسبانية. CPA (جامعة إلينوي، الولايات المتحدة)، CFE (مدقق احتيال معتمد، الولايات المتحدة)، مدقق مسجل في الإمارات، وكيل ضرائب مسجل في الإمارات، بكالوريوس في المحاسبة (الجامعة الأردنية)
+      </p>
+
+      <!-- أيقونات التواصل -->
+      <div class="founder-socials" style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+        <a href="https://www.linkedin.com/in/fahem-nihad-yaseen-al-musa-107bb219" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/30/30569F/linkedin.png" alt="LinkedIn">
+        </a>
+        <a href="https://wa.me/962798268268" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/30/30569F/whatsapp.png" alt="WhatsApp">
+        </a>
+        <a href="mailto:fahem@umcjo.com">
+          <img src="https://img.icons8.com/ios-filled/30/30569F/new-post.png" alt="Email">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4>About UMMC</h4>
+        <p>Unique Modern Management Consulting bridges global best practices with regional insight to empower growth, governance, and digital excellence.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="founder.html">Founder</a></li>         
+          <li><a href="services.html">Services</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><i class="fa-solid fa-location-dot"></i> King Hussein Business Park, Amman, Jordan</li>
+          <li><i class="fa-solid fa-envelope"></i> fahem@umcjo.com</li>
+          <li><i class="fa-solid fa-phone"></i>  +962 798 268 268</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2025 UMMC. All Rights Reserved.
+      Powerd By EQTech Jordan 
+    </div>
+  </footer>
+  <!-- ===== JS ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    // تأثير ظهور الهيدر عند التحميل
+    window.addEventListener('load', () => {
+      document.getElementById('main-header').classList.add('visible');
+    });
+
+    // Hamburger Toggle + زر الإغلاق
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('nav ul');
+    const closeBtn = document.querySelector('.close-btn');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('active');
+    });
+document.querySelectorAll(".lang-switch").forEach(btn => {
+  btn.addEventListener("click", function () {
+    const path = window.location.pathname;
+    let target = "";
+    if (path.includes(".ar.html")) target = path.replace(".ar.html", ".html");
+    else if (path.includes(".html")) target = path.replace(".html", ".ar.html");
+    else target = path + ".ar.html";
+    window.location.href = target + window.location.search + window.location.hash;
+  });
+});
+
+  </script>
+</body>
+</html>
